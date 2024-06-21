@@ -1,9 +1,9 @@
-
 const express = require('express');
 const router = express.Router();
 const accountController = require('../controllers/accountController');
 
-// Route to create an account
 router.post('/create', accountController.createAccount);
+router.put('/account/:id', accountController.modifyAccount);
+router.delete('/account/:id', accountController.deleteAccount);
 
 module.exports = router;

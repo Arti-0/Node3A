@@ -1,4 +1,3 @@
-
 const db = require('../db');
 
 function addProduct(nom, prix, taille, stock) {

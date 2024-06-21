@@ -1,4 +1,3 @@
-
 const db = require('../db');
 
 function placeOrder(clientId, productId, quantity) {
@@ -10,6 +9,17 @@ function placeOrder(clientId, productId, quantity) {
     } catch (err) {
         console.error('Error placing order:', err.message);
         return null;
+    }
+}
+
+function getMyOrders(clientId) {
+    const stmt = db.prepare('SELECT * FROM orders WHERE client_id = ?');
+    try {
+        const orders = stmt.all(clientId);
+        return orders;
+    } catch (err) {
+        console.error('Error fetching orders:', err.message);
+        return [];
     }
 }
 
@@ -30,7 +40,23 @@ function modifyOrder(orderId, clientId, productId, quantity) {
     }
 }
 
+function createOrderMultiProducts(products) {
+    const stmt = db.prepare('INSERT INTO orders (date_commande) VALUES (datetime(\'now\', \'localtime\'))');
+    const info = stmt.run();
+
+    const orderId = info.lastInsertRowid;
+
+    products.forEach(product => {
+        const stmtLine = db.prepare('INSERT INTO ligne_commande (id_commande, id_produit, quantite) VALUES (?, ?, ?)');
+        stmtLine.run(orderId, product.id_produit, product.quantite);
+    });
+
+    return orderId;
+}
+
 module.exports = {
+    getMyOrders,
     placeOrder,
-    modifyOrder
+    modifyOrder,
+    createOrderMultiProducts
 };

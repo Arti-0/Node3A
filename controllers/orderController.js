@@ -21,7 +21,35 @@ function modifyOrder(req, res) {
     }
 }
 
+function getMyOrders(req, res) {
+    const { clientId } = req.query;
+    const orders = orderModel.getMyOrders(clientId);
+    if (success) {
+        res.status(200).json(orders);
+    } else {
+        res.status(404).json({ error: `Une erreur est survenue` });
+    }
+}
+
+function createOrderMultiProducts(req, res) {
+    const products = req.body.products;
+
+    if (!products || !Array.isArray(products) || products.length === 0) {
+        return res.status(400).json({ error: 'La liste des produits est invalide ou vide.' });
+    }
+
+    try {
+        const orderId = orderModel.createOrderMultiProducts(products);
+        res.status(201).json({ message: 'Commande créée avec succès !', orderId });
+    } catch (err) {
+        console.error('Erreur lors de la création de la commande multi-produits :', err.message);
+        res.status(500).json({ error: 'Erreur lors de la création de la commande.' });
+    }
+}
+
 module.exports = {
+    getMyOrders,
     placeOrder,
-    modifyOrder
+    modifyOrder,
+    createOrderMultiProducts
 };

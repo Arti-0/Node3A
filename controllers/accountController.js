@@ -1,4 +1,3 @@
-
 const accountModel = require('../models/account');
 
 function createAccount(req, res) {
