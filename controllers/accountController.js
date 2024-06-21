@@ -1,4 +1,4 @@
-const accountModel = require('../models/account');
+const accountModel = require('../models/accountModel');
 
 function createAccount(req, res) {
     const { nom, prenom, mail } = req.body;

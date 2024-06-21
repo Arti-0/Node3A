@@ -1,8 +1,8 @@
-const adminModel = require('../models/admin');
+const adminModel = require('../models/adminModel');
 
 function addProduct(req, res) {
     const { nom, prix, taille, stock } = req.body;
-    const productId = productModel.addProduct(nom, prix, taille, stock);
+    const productId = adminModel.addProduct(nom, prix, taille, stock);
     if (productId) {
         res.status(201).json({ message: 'Produit ajouté avec succès !', productId });
     } else {
@@ -12,7 +12,7 @@ function addProduct(req, res) {
 
 
 function getAllProducts(req, res) {
-    const sql = 'SELECT * FROM vetements';
+    const sql = 'SELECT * FROM products';
     db.all(sql, [], (err, rows) => {
         if (err) {
             console.error('Erreur lors de la récupération des produits :', err.message);

@@ -1,4 +1,4 @@
-const productModel = require('../models/product');
+const productModel = require('../models/productModel');
 
 function getAllProducts(req, res) {
     const products = productModel.getAllProducts();
@@ -6,6 +6,5 @@ function getAllProducts(req, res) {
 }
 
 module.exports = {
-    addProduct,
     getAllProducts
 };

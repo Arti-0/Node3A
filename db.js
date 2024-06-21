@@ -13,7 +13,7 @@ db.exec(`
         mail TEXT
     );
 
-    CREATE TABLE IF NOT EXISTS vetements (
+    CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nom TEXT,
         prix REAL,
@@ -27,7 +27,7 @@ db.exec(`
         product_id INTEGER,
         quantity INTEGER,
         FOREIGN KEY(client_id) REFERENCES compte(id),
-        FOREIGN KEY(product_id) REFERENCES vetements(id)
+        FOREIGN KEY(product_id) REFERENCES products(id)
     );
 `);
 

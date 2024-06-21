@@ -1,4 +1,4 @@
-const orderModel = require('../models/order');
+const orderModel = require('../models/orderModel');
 
 function placeOrder(req, res) {
     const { clientId, productId, quantity } = req.body;

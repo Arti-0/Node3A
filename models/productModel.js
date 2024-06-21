@@ -1,7 +1,7 @@
 const db = require('../db');
 
 function addProduct(nom, prix, taille, stock) {
-    const stmt = db.prepare('INSERT INTO vetements (nom, prix, taille, stock) VALUES (?, ?, ?, ?)');
+    const stmt = db.prepare('INSERT INTO products (nom, prix, taille, stock) VALUES (?, ?, ?, ?)');
     try {
         const result = stmt.run(nom, prix, taille, stock);
         console.log('Produit ajouté avec succès !');
@@ -13,7 +13,7 @@ function addProduct(nom, prix, taille, stock) {
 }
 
 function getAllProducts() {
-    const stmt = db.prepare('SELECT * FROM vetements');
+    const stmt = db.prepare('SELECT * FROM products');
     try {
         const products = stmt.all();
         return products;
